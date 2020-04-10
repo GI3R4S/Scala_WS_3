@@ -1,20 +1,21 @@
 import Array._
 import scala.collection.immutable._
+import scala.reflect.runtime.universe._
 
 object Collections {
   def main(args: Array[String]) {
 
-    //////////////////////////////////////
-    // Array /////////////////////////////
-    //////////////////////////////////////
+    /////////////////////////////////////////////////////////////
+    // Array ////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////
 
-    val numbersArray = Array(1, 2, 3, 4, 5, 6) // 'val' uniemożliwi nadpisanie numbersArray przez inną instancję Array,
-    // lecz elementy numbersArray są wciąż modyfikowalne !
+    val numbersArray = Array(1, 2, 3, 4, 5, 6) // przykładowa definicja zmiennej typu Array, odpowiednik T[] z Javy
 
-    val numbersArrayWithSize = Array[Int](10)
-    val numbersArrayWithNew = new Array[Int](10)
-    val numbersArrayStrongTyping = Array[Int](1, 2, 3, 4, 5, 6) // Array[T] to odpowiednik T[] z Javy
+    val numbersArrayWithNew = new Array[Int](10) // definicja tablicy o ustalonej wielkości
+    val numbersArrayStrongTyping = Array[Int](1, 2, 3, 4, 5, 6) // jawne podanie typu elementów agregowanych
     val numbersArrayFromRange = range(0, 20, 2) //  tworzenie tablicy przy pomocy 'range'
+
+    assert(numbersArrayFromRange.isInstanceOf[Array[Int]])
 
     var arrayItem = numbersArray(3) // odczytuje element spod podanego indeksu
     numbersArray(3) = 100 // zmienia wartość elementu spod indeksu '3'
@@ -40,9 +41,9 @@ object Collections {
     // utworzenie nowej tablicy na podstawie 'numbersArray' rozszerzonej o zawartość innej tablicy na początku
     val newArrayAppendRangeOnBeginning = numbersArrayFromRange ++: numbersArray
 
-    //////////////////////////////////////
-    // Sequence //////////////////////////
-    //////////////////////////////////////
+    /////////////////////////////////////////////////////////////
+    // Sequence /////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////
 
     // Hierarchia traitów
     //
@@ -60,18 +61,19 @@ object Collections {
     //  - kolekcja implementująca 'Seq' narzuca ułożenie elmentów w kolejności
     //  - kolekcja implementująca 'Seq' udostępnia metody związane ze znajdywaniem podciągów np.:
     //       segmentLength, prefixLength, indexWhere, indexOf, lastIndexWhere, lastIndexOf, startsWith, endsWith, indexOfSlice
-    //  - IndexedSeq udostępnia  losowy dostęp dla elementów kolekcji, LinearSeq umożlwia szybki dostęp do pierwszego i ostatniego elementu kolekcji
+    //  - IndexedSeq udostępnia losowy dostęp dla elementów kolekcji, LinearSeq umożlwia szybki dostęp do pierwszego i ostatniego elementu kolekcji
     //  - IndexedSeq implementują: Vector, String, Range, NumericRange
     //  - LinearSeq implementują: List, Stack, Stream, Queue
 
-    //////////////////////////////////////
-    // List //////////////////////////////
-    //////////////////////////////////////
+    /////////////////////////////////////////////////////////////
+    // List /////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////
 
     // - jest niemodyfikowalna
     // - implementuje LinearSeq - elementy są połączone ze sobą w okreslonej kolejności
     // - szybkie operacje na pierwszym(head) i ostatnim(tail) elemencie listy
     // - podobnie jak tablice, po utworzeniu są niemodyfikowalne
+
     val numbersList = List(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
     val numbersListStronglyTyped: List[Int] = List[Int](1, 2, 3, 4, 5)
     val numbersListMultiDimensional = List(
@@ -98,7 +100,7 @@ object Collections {
 
     val head = numbersList.head // dostęp do pierwszego elementu listy == 1
     val tail = numbersList.tail // dostęp do ostatniego elementu listy == 9
-    numbersList.isEmpty // czy list jest pusta ?
+    numbersList.isEmpty // czy lista jest pusta ?
 
     //numbersList.head = -1000 // nie można wykonać przypisania do elementu
 
@@ -107,9 +109,9 @@ object Collections {
     //  maksimum, testowanie predykatów, filtracje, akumulacje itd.
     //
 
-    //////////////////////////////////////
-    // Tuple ////////////////////////////
-    /////////////////////////////////////
+    /////////////////////////////////////////////////////////////
+    // Tuple ////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////
 
     // - Umożliwia przechowywanie zmiennych różnego typu
     val exampleTuple = (1, 1.0f, "tekst", true)
