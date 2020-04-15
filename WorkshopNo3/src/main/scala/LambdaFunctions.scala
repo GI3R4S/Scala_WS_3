@@ -2,11 +2,14 @@ object LambdaFunctions {
   def main(args: Array[String]): Unit = {
     val numbers = List(1, 2, 3, 4, 5, 6)
 
+    //zwykła pętla do wyświetlenia elementów listy numbers
     println("Without lambda")
     for (number <- numbers) {
       println(number)
     }
 
+    //różne sposoby na wyświetlenie elementów listy numbers za
+    //pomocą słowa kluczowego foreach, a także wyrażenia lambda
     println("\n\nLambda 1")
     numbers.foreach { number: Int => println(number) }
 
@@ -22,7 +25,7 @@ object LambdaFunctions {
     numbers foreach println
 
 
-
+    //przykład obliczenia sumy przy pomocy notacji jak wyżej
     var sum = 0
     println("\n\nLambda sum")
     numbers.foreach(sum += _)
@@ -30,6 +33,8 @@ object LambdaFunctions {
     assert(sum == 21)
 
 
+
+    //zastosowanie wyrażenia lambda jako predykatu używanego do selekcji elementów
     val oddNumbers = numbers.filter((number: Int) => number % 2 != 0)
     println("\n\nOdd numbers")
     println(oddNumbers)
@@ -37,6 +42,7 @@ object LambdaFunctions {
     assert(oddNumbers(0) == 1 && oddNumbers(1) == 3 && oddNumbers(2) == 5)
 
 
+    //jw. tylko inna metoda, rezultat parzyste
     val evenNumbers = numbers.filterNot((number: Int) => number % 2 != 0)
     println("\n\nEven numbers")
     println(evenNumbers)
@@ -44,6 +50,8 @@ object LambdaFunctions {
     assert(evenNumbers(0) == 2 && evenNumbers(1) == 4 && evenNumbers(2) == 6)
 
 
+    //przekstałcenie kolekcji za pomocą funkcji map
+    //wyrażenie lambda w postaci funkcji przekazane jako parametr do transformacji
     val squaredNumbers = numbers.map((number: Int) => number * number)
     println("\n\nSquared numbers")
     println(squaredNumbers)
@@ -52,6 +60,8 @@ object LambdaFunctions {
       && squaredNumbers(3) == 16 && squaredNumbers(4) == 25 && squaredNumbers(5) == 36)
 
 
+    //stworzenie funkcji z wyrażeniem lambda w celu dodania możliwości
+    //jej ponownego używania, także z innymi kolekcjami
     val squareFunction = (number: Int) => number * number
 
     val squaredNumbers2 = numbers.map(squareFunction)
@@ -62,9 +72,11 @@ object LambdaFunctions {
       && squaredNumbers2(3) == 16 && squaredNumbers2(4) == 25 && squaredNumbers2(5) == 36)
 
 
-    def squareNumbersInList(list: List[Int], function: Int => Int) = list.map(function)
+    //funckja służąca do transformacji listy zawierającej liczby całkowite
+    //jako parametr przyjmuje właśnie tę listę oraz funckję w postaci wyrażenia lambda
+    def transformListFunction(list: List[Int], function: Int => Int) = list.map(function)
 
-    val squaredNumbers3 = squareNumbersInList(numbers, (number: Int) => number * number)
+    val squaredNumbers3 = transformListFunction(numbers, (number: Int) => number * number)
     println("\n\nSquared numbers 3")
     println(squaredNumbers3)
     assert(squaredNumbers3.size == 6)

@@ -1,6 +1,5 @@
-import Array._
+import scala.Array._
 import scala.collection.immutable._
-import scala.reflect.runtime.universe._
 
 object Collections {
   def main(args: Array[String]) {
