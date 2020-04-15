@@ -13,10 +13,13 @@ object ObjectCompanion {
 
     rectangle1.print()
 
+    //Wypisanie prywatnej zmiennej
     rectangle1.printPrivate()
 
-    val result = RectangleCompanion.unapply(rectangle1)
-    println(result)
+    val tupleOfInt = RectangleCompanion.unapply(rectangle1)
+    println(tupleOfInt)
+    val string = RectangleCompanion.unapply(rectangle1, boolean = true)
+    println(string)
   }
 }
 
@@ -46,14 +49,14 @@ object RectangleCompanion {
 
   def unapply(rectangleCompanion: RectangleCompanion): (Int, Int) = (rectangleCompanion.length, rectangleCompanion.height)
 
-//  def unapply(rectangleCompanion: RectangleCompanion): String =
-//    s"${rectangleCompanion.length}, ${rectangleCompanion.height}"
+  def unapply(rectangleCompanion: RectangleCompanion, boolean: Boolean): String
+  = s"${rectangleCompanion.length}, ${rectangleCompanion.height}"
 }
 
 // Po co?
 // - dostęp do prywatnych pól i metod w obie strony
 // - tworzenie nowych instancji bez słowa kluczowego 'new' (kompilator stosuje metodę 'apply')
-//      val rectangle1: RectangleCompanion = RectangleCompanion(5, 10)
-//      val rectangle1: RectangleCompanion = RectangleCompanion.apply(5, 10)
+//      val rectangle1: RectangleCompanion = RectangleCompanion()
+//      val rectangle1: RectangleCompanion = RectangleCompanion.apply()
 // - możliwość wielu różnych metod apply w celu dostarczenia wielu konstruktorów
 // - 'unapply' w celu rozbicia instancji klasy na indywidualne komponenty
